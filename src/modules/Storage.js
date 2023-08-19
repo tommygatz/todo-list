@@ -1,11 +1,19 @@
-function loadPage(){
+var projects = [];
+var tasks = [];
+var currentProj = 0;
 
-}
+function updateLocalStorage(selection, name){
+    localStorage.setItem(name, JSON.stringify(selection));
+};
 
-function loadProjects(){
+function loadLocalStorage(selection){
+    const x = JSON.parse(localStorage.getItem(selection));
+    console.log(x);
 
-}
+    return x;
+};
 
-function loadTasks(){
-    
-}
+
+
+
+export {projects, tasks, currentProj, updateLocalStorage, loadLocalStorage};
