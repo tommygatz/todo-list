@@ -1,7 +1,6 @@
 import "./styles/reset.css"
 import "./styles/styles.css";
 
-
 const form = document.querySelector("#new-task-form");
 const input = document.querySelector("#new-task");
 const tasks_el = document.querySelector("#tasks");
