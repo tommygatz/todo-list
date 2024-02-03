@@ -45,6 +45,7 @@ body {
     color: #333333;
     outline: none;
     border: 2px solid #CCCCCC;
+    justify-self: center;
 }
 
 #new-task, #new-task-submit{
@@ -90,7 +91,9 @@ body {
 
 .task > .text {
     padding: 5px;
+    padding-left: 10px;
     border: none;
+    border-radius: 15px;
     background-color: inherit;
     font: inherit;
     cursor: default;
