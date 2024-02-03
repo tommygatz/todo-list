@@ -1,3 +1,7 @@
+import "./styles/reset.css"
+import "./styles/styles.css";
+
+
 const form = document.querySelector("#new-task-form");
 const input = document.querySelector("#new-task");
 const tasks_el = document.querySelector("#tasks");
@@ -109,7 +113,7 @@ function renderTasksList(tasksList) {
 function deleteTask(id) {
     tasksList.forEach(function(ind) {
         if (ind.id == id) {
-            tasksList.splice(ind, 1);
+            tasksList.splice(tasksList.indexOf(ind), 1);
             addToLocalStorage(tasksList);
         };
     });
