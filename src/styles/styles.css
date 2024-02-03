@@ -27,11 +27,21 @@ body {
     width: 100vw; 
     align-items: center;
     justify-content: center;
-    background-color:rgb(110, 203, 227);
+    /* background-color:rgb(110, 203, 227); */
     font-family: var(--mainfont);
     font-size: 1rem;
     flex-direction: column;
     padding: 10px;
+}
+
+#new-task, #new-task-submit{
+    border-radius: 7px;
+    border: none;
+    padding: 5px;
+}
+
+#new-task-submit {
+    cursor: pointer;
 }
 
 #tasks {
@@ -52,7 +62,7 @@ body {
     font-family: var(--mainfont);
     font-size: 1rem;
     box-shadow: 0px 0px 5px -2px black ;
-    border-radius: 5px;
+    border-radius: 7px;
     margin-bottom: 10px;
 
 }
@@ -62,6 +72,7 @@ body {
     border: none;
     background-color: inherit;
     font: inherit;
+    cursor: default;
 }
 
 .task > .text:not(:read-only) {
@@ -74,4 +85,8 @@ body {
 
 .task > .actions {
     padding: 5px;
+}
+
+.task > .actions:hover {
+    cursor:pointer;
 }
