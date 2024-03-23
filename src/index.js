@@ -1,6 +1,17 @@
 import "./styles/reset.css"
 import "./styles/styles.css";
+import { loadFromLocalStorage } from "./modules/Storage";
+import { projectsList } from "./modules/Project";
+import { renderProjectsList } from "./modules/Page";
 
+
+window.addEventListener('DOMContentLoaded', loadFromLocalStorage());
+
+localStorage.setItem('projectsList', JSON.stringify(projectsList));
+
+renderProjectsList(projectsList);
+
+/**
 const form = document.querySelector("#new-task-form");
 const input = document.querySelector("#new-task");
 const tasks_el = document.querySelector("#tasks");
@@ -15,7 +26,9 @@ form.addEventListener("submit", (e) => {
     addTask(task);
     renderTasksList(tasksList);
 });
+**/
 
+/**
 function addTask(item) {
     if (item !== '') {
         const task = {
@@ -28,7 +41,9 @@ function addTask(item) {
         input.value = "";
     };
 };
+**/
 
+/**
 function renderTasksList(tasksList) {
     tasks_el.innerHTML = '';
 
@@ -108,7 +123,9 @@ function renderTasksList(tasksList) {
         tasks_el.append(new_task);
     });
 };
+**/
 
+/**
 function deleteTask(id) {
     tasksList.forEach(function(ind) {
         if (ind.id == id) {
@@ -127,6 +144,9 @@ function toggle(id) {
     });
 };
 
+**/
+
+/**
 function addToLocalStorage(tasksList) {
     localStorage.setItem('tasksList', JSON.stringify(tasksList));
 };
@@ -147,3 +167,4 @@ function updateTasksList(id, value) {
         };
     });
 };
+**/
