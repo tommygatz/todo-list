@@ -1,26 +1,45 @@
-import { tasksList } from "./Page";
-import { addToLocalStorage } from "./Storage";
+import { renderTasksList } from "./Page";
+import { activeProjId, projectsList } from "./Project";
+import { updateLocalStorage, loadFromLocalStorage } from "./Storage";
+
+let tasksList = [];
 
 function addTask(item, formInput) {
-    if (item !== '') {
-        const task = {
-            id: Date.now(),
-            name: item,
-            completed: false
+    projectsList.forEach(function(ind){
+        if (ind.projectid == activeProjId) {
+            if (item !== '') {
+                const task = {
+                    id: Date.now(),
+                    name: item,
+                    completed: false
+                };
+                ind.tasks.push(task);
+                tasksList = ind.tasks;
+                updateLocalStorage();
+                loadFromLocalStorage();
+                formInput.value = "";
+            };
         };
-        tasksList.push(task);
-        addToLocalStorage(tasksList);
-        formInput.value = "";
-    };
+    });
 };
 
 function deleteTask(id) {
+    
     tasksList.forEach(function(ind) {
         if (ind.id == id) {
             tasksList.splice(tasksList.indexOf(ind), 1);
-            addToLocalStorage(tasksList);
+            renderTasksList(tasksList);
+            updateLocalStorage();
+
         };
     });
+    // projectsList.forEach(function(ind){
+    //     if (ind.projectid == activeProjID) {
+    //         console.log(projectsList[ind]);
+    //         // projectsList[ind].tasks = tasksList;
+    //         addToLocalStorage();
+    //     };
+    // });
 };
 
 function toggle(id) {
@@ -32,4 +51,4 @@ function toggle(id) {
     });
 };
 
-export { addTask, deleteTask, toggle };
+export { addTask, deleteTask, toggle, tasksList };

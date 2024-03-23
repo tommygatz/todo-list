@@ -1,15 +1,10 @@
 import "./styles/reset.css"
 import "./styles/styles.css";
 import { loadFromLocalStorage } from "./modules/Storage";
-import { projectsList } from "./modules/Project";
-import { renderProjectsList } from "./modules/Page";
 
 
 window.addEventListener('DOMContentLoaded', loadFromLocalStorage());
 
-localStorage.setItem('projectsList', JSON.stringify(projectsList));
-
-renderProjectsList(projectsList);
 
 /**
 const form = document.querySelector("#new-task-form");

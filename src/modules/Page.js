@@ -1,29 +1,36 @@
-import { updateTasksList } from "./Storage";
-import { addTask, deleteTask, toggle, } from "./Task";
+import { projectsList, addProject, setActiveProject } from "./Project";
+import { loadFromLocalStorage, updateTasksList } from "./Storage";
+import { addTask, deleteTask, toggle, tasksList } from "./Task";
 
 
-const form = document.querySelector("#new-task-form");
+const taskForm = document.querySelector("#new-task-form");
 const formInput = document.querySelector("#new-task");
 const tasks_el = document.querySelector("#tasks");
+
+const projForm = document.querySelector("#new-proj-form");
+const projFormInput = document.querySelector("#new-proj");
 const projects_el = document.querySelector("#projects");
 
-let tasksList = [];
 
-
-
-form.addEventListener("submit", (e) => {
+taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const task = formInput.value;
     addTask(task, formInput);
     renderTasksList(tasksList);
 });
 
+projForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const proj = projFormInput.value;
+    addProject(proj, projFormInput);
+    renderProjectsList(projectsList);
+});
 
 
-function renderTasksList(tasksList) {
+function renderTasksList(tasks) {
     tasks_el.innerHTML = '';
 
-    tasksList.forEach(function(item) {
+    tasks.forEach(function(item) {
         const checked = item.completed;
         const taskText = item.name;
 
@@ -100,23 +107,27 @@ function renderTasksList(tasksList) {
     });
 };
 
-function renderProjectsList(projectsList) {
+function renderProjectsList(projects) {
     projects_el.innerHTML = "";
-
-
-    projectsList.forEach(function(item) {
-        const projName = item.projectname;
-        const projId = item.projectid;
-        const new_project = document.createElement("li");
-        new_project.classList.add("project");
-        new_project.setAttribute("data-key", projId);
-        new_project.innerHTML = projName;
-
-        projects_el.append(new_project);
-    });
+    if (projects !== null) {
+        projects.forEach(function(item) {
+            const projName = item.projectname;
+            const projId = item.projectid;
+            const new_project = document.createElement("li");
+            new_project.classList.add("project");
+            new_project.setAttribute("data-key", projId);
+            new_project.innerHTML = projName;
+            new_project.addEventListener("click", (e) => {
+                setActiveProject(projId);
+                loadFromLocalStorage();
+            });
+    
+            projects_el.append(new_project);
+        });
+    };
 };
 
 
 
 
-export { renderTasksList, tasksList, renderProjectsList };
+export { renderTasksList, renderProjectsList };

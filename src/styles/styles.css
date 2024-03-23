@@ -69,7 +69,7 @@ body {
 #project-list {     
     display: flex;
     flex-direction: column;
-    width: 25vw;
+    width: fit-content;
     position: relative;
     padding: 10px;
     font-family: var(--mainfont);
@@ -87,6 +87,31 @@ body {
     padding: 10px;
 }
 
+#new-proj-form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#new-proj-submit {
+    cursor: pointer;
+    border: none;
+    color: #000000;
+}
+
+.project {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: fit-content;
+    width: 100%;
+    padding: 10px;
+    font-family: var(--mainfont);
+    font-size: 1rem;
+    box-shadow: 0px 0px 5px -2px black ;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+}
 
 #task-list {
     display: flex;
