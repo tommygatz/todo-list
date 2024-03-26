@@ -1,4 +1,4 @@
-import { projectsList, addProject, setActiveProject } from "./Project";
+import { projectsList, addProject, setActiveProject, addProjectNEW } from "./Project";
 import { loadFromLocalStorage, updateTasksList } from "./Storage";
 import { addTask, deleteTask, toggle, tasksList } from "./Task";
 
@@ -7,9 +7,18 @@ const taskForm = document.querySelector("#new-task-form");
 const formInput = document.querySelector("#new-task");
 const tasks_el = document.querySelector("#tasks");
 
-const projForm = document.querySelector("#new-proj-form");
-const projFormInput = document.querySelector("#new-proj");
+// const projForm = document.querySelector("#new-proj-form");
+// const projFormInput = document.querySelector("#new-proj");
 const projects_el = document.querySelector("#projects");
+const projAddBtn = document.querySelector("#add-project-btn");
+
+projAddBtn.addEventListener("click", (e) => {
+    let newProjInput = prompt("Enter New Project Name");
+    if (newProjInput !== null && newProjInput !== "") {
+        addProjectNEW(newProjInput);
+    };
+
+});
 
 
 taskForm.addEventListener("submit", (e) => {
@@ -19,12 +28,12 @@ taskForm.addEventListener("submit", (e) => {
     renderTasksList(tasksList);
 });
 
-projForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const proj = projFormInput.value;
-    addProject(proj, projFormInput);
-    renderProjectsList(projectsList);
-});
+// projForm.addEventListener("submit", (e) => {
+//     e.preventDefault();
+//     const proj = projFormInput.value;
+//     addProject(proj, projFormInput);
+//     renderProjectsList(projectsList);
+// });
 
 
 function renderTasksList(tasks) {

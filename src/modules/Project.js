@@ -6,6 +6,8 @@ let projectsList = [];
 let activeProjId = "";
 
 function addProject(item, formInput) {
+
+
     const proj = {
         projectid: Date.now(),
         projectname: item,
@@ -15,6 +17,17 @@ function addProject(item, formInput) {
     updateLocalStorage();
     renderProjectsList(projectsList);
     formInput.value = "";
+};
+
+function addProjectNEW(name) {
+    const proj = {
+        projectid: Date.now(),
+        projectname: name,
+        tasks: []
+    };
+    projectsList.push(proj);
+    updateLocalStorage();
+    renderProjectsList(projectsList);
 };
 
 function setActiveProject(id) {
@@ -27,4 +40,4 @@ function setActiveProject(id) {
     });
 }
 
-export {projectsList, activeProjId, addProject, setActiveProject};
+export {projectsList, activeProjId, addProject, setActiveProject, addProjectNEW};
