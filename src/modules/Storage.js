@@ -1,6 +1,6 @@
 import { renderProjectsList, renderTasksList } from "./Page";
 import { tasksList } from "./Task";
-import { activeProjId, projectsList } from "./Project";
+import { activeProjId, projectsList, setActiveProject } from "./Project";
 
 // function updateLocalStorage(tasksList) {
 //     localStorage.setItem('tasksList', JSON.stringify(tasksList));
@@ -9,12 +9,12 @@ import { activeProjId, projectsList } from "./Project";
 function updateLocalStorage() {
     localStorage.setItem('projectsList', JSON.stringify(projectsList));
     localStorage.setItem('activeProjId', activeProjId);
-    localStorage.setItem('activeTasks', tasksList);
+    localStorage.setItem('activeTasks', JSON.stringify(tasksList));
 };
 
 function loadFromLocalStorage() {
     const data = localStorage.getItem('projectsList');
-    if (data !== null){
+    if (projectsList.length > 0){
         if (activeProjId == null){
             activeProjId = "default-project";
         }
@@ -25,19 +25,15 @@ function loadFromLocalStorage() {
             if (ind.projectid == projID) {
                 tasksList = ind.tasks;
                 renderTasksList(tasksList);
-
-                // try {
-                //     renderTasksList(tasksList);
-                // } catch(err) {
-                //     console.error(err);
-                // };
             };
         });
     } else {
         projectsList = [{"projectid":"default-project","projectname":"Default","tasks":[]}];
-        activeProjId = "default-project";
+        setActiveProject("default-project");
+        tasksList = [];
         updateLocalStorage();
         renderProjectsList(projectsList);
+        renderTasksList(tasksList);
     };
 };
 

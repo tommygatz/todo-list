@@ -46,7 +46,7 @@ function toggle(id) {
     tasksList.forEach(function(ind) {
         if (ind.id == id) {
             ind.completed = !ind.completed;
-            updateLocalStorage(tasksList);
+            // updateLocalStorage(tasksList);
         };
     });
 };

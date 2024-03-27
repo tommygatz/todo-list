@@ -1,5 +1,5 @@
-import { projectsList, addProject, setActiveProject, addProjectNEW } from "./Project";
-import { loadFromLocalStorage, updateTasksList } from "./Storage";
+import { projectsList, setActiveProject, addProjectNEW, deleteProject, activeProjId } from "./Project";
+import { loadFromLocalStorage, updateLocalStorage, updateTasksList } from "./Storage";
 import { addTask, deleteTask, toggle, tasksList } from "./Task";
 
 
@@ -7,8 +7,6 @@ const taskForm = document.querySelector("#new-task-form");
 const formInput = document.querySelector("#new-task");
 const tasks_el = document.querySelector("#tasks");
 
-// const projForm = document.querySelector("#new-proj-form");
-// const projFormInput = document.querySelector("#new-proj");
 const projects_el = document.querySelector("#projects");
 const projAddBtn = document.querySelector("#add-project-btn");
 
@@ -16,10 +14,10 @@ projAddBtn.addEventListener("click", (e) => {
     let newProjInput = prompt("Enter New Project Name");
     if (newProjInput !== null && newProjInput !== "") {
         addProjectNEW(newProjInput);
+        // renderProjectsList(projectsList);
+        loadFromLocalStorage();
     };
-
 });
-
 
 taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -28,16 +26,8 @@ taskForm.addEventListener("submit", (e) => {
     renderTasksList(tasksList);
 });
 
-// projForm.addEventListener("submit", (e) => {
-//     e.preventDefault();
-//     const proj = projFormInput.value;
-//     addProject(proj, projFormInput);
-//     renderProjectsList(projectsList);
-// });
-
-
 function renderTasksList(tasks) {
-    tasks_el.innerHTML = '';
+    tasks_el.innerHTML = "";
 
     tasks.forEach(function(item) {
         const checked = item.completed;
@@ -123,20 +113,37 @@ function renderProjectsList(projects) {
             const projName = item.projectname;
             const projId = item.projectid;
             const new_project = document.createElement("li");
+            const deleteBtn = document.createElement("span");
             new_project.classList.add("project");
             new_project.setAttribute("data-key", projId);
+            new_project.setAttribute("id", projId);
             new_project.innerHTML = projName;
             new_project.addEventListener("click", (e) => {
                 setActiveProject(projId);
                 loadFromLocalStorage();
             });
-    
+            if (projId == activeProjId) {
+                new_project.classList.add("selected-project");
+            };
+            deleteBtn.classList.add("material-symbols-outlined");
+            deleteBtn.innerText = "delete";
+            deleteBtn.addEventListener("click", () => {
+                deleteProject(new_project.getAttribute('data-key'));
+                renderProjectsList(projectsList);
+                updateLocalStorage()
+                loadFromLocalStorage();
+            });
+            new_project.append(deleteBtn);
             projects_el.append(new_project);
         });
     };
 };
 
-
+// function highlightActiveProj(){
+//     let activeProjElement = document.getElementById(activeProjId);
+//     console.log(activeProjElement)
+//     activeProjElement.classList.add("selected-project");
+// }
 
 
 export { renderTasksList, renderProjectsList };

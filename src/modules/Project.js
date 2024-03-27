@@ -1,23 +1,9 @@
-import { renderProjectsList } from "./Page";
-import { updateLocalStorage } from "./Storage";
+import { srenderProjectsList } from "./Page";
+import { loadFromLocalStorage, updateLocalStorage } from "./Storage";
 import { tasksList } from "./Task";
 
 let projectsList = [];
 let activeProjId = "";
-
-function addProject(item, formInput) {
-
-
-    const proj = {
-        projectid: Date.now(),
-        projectname: item,
-        tasks: []
-    };
-    projectsList.push(proj);
-    updateLocalStorage();
-    renderProjectsList(projectsList);
-    formInput.value = "";
-};
 
 function addProjectNEW(name) {
     const proj = {
@@ -27,7 +13,7 @@ function addProjectNEW(name) {
     };
     projectsList.push(proj);
     updateLocalStorage();
-    renderProjectsList(projectsList);
+    setActiveProject(proj.projectid)
 };
 
 function setActiveProject(id) {
@@ -36,8 +22,22 @@ function setActiveProject(id) {
         if (ind.projectid == activeProjId) {
             tasksList = ind.tasks;
             updateLocalStorage();
+            // highlightActiveProj();
         };
     });
-}
+};
 
-export {projectsList, activeProjId, addProject, setActiveProject, addProjectNEW};
+function deleteProject(id) {    
+    projectsList.forEach(function(ind) {
+        if (ind.projectid == id) {
+            projectsList.splice(projectsList.indexOf(ind), 1);
+            if (id == activeProjId && projectsList.length !== 0) {
+                setActiveProject(projectsList[0].projectid);
+            };
+            updateLocalStorage();
+            loadFromLocalStorage();
+        };
+    });
+};
+
+export {projectsList, activeProjId, setActiveProject, addProjectNEW, deleteProject};
