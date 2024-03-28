@@ -2,7 +2,7 @@ import { renderTasksList } from "./Page";
 import { activeProjId, projectsList } from "./Project";
 import { updateLocalStorage, loadFromLocalStorage } from "./Storage";
 
-let tasksList = [];
+var tasksList = [];
 
 function addTask(item, formInput) {
     projectsList.forEach(function(ind){

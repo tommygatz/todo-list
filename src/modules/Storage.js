@@ -1,10 +1,7 @@
-import { renderProjectsList, renderTasksList } from "./Page";
+import { highlightActiveProj, renderProjectsList, renderTasksList } from "./Page";
 import { tasksList } from "./Task";
 import { activeProjId, projectsList, setActiveProject } from "./Project";
 
-// function updateLocalStorage(tasksList) {
-//     localStorage.setItem('tasksList', JSON.stringify(tasksList));
-// };
 
 function updateLocalStorage() {
     localStorage.setItem('projectsList', JSON.stringify(projectsList));
@@ -13,28 +10,34 @@ function updateLocalStorage() {
 };
 
 function loadFromLocalStorage() {
-    const data = localStorage.getItem('projectsList');
-    if (projectsList.length > 0){
-        if (activeProjId == null){
-            activeProjId = "default-project";
-        }
-        const projID = getActiveProjId();
-        projectsList = JSON.parse(data);
-        renderProjectsList(projectsList);
-        projectsList.forEach(function(ind) {
-            if (ind.projectid == projID) {
-                tasksList = ind.tasks;
-                renderTasksList(tasksList);
-            };
-        });
-    } else {
+    let projects = localStorage.getItem('projectsList');
+    projectsList = JSON.parse(projects);
+    activeProjId = localStorage.getItem('activeProjId');
+
+    if (projectsList == null || projectsList.length == 0){
         projectsList = [{"projectid":"default-project","projectname":"Default","tasks":[]}];
         setActiveProject("default-project");
         tasksList = [];
         updateLocalStorage();
         renderProjectsList(projectsList);
         renderTasksList(tasksList);
+
+    } else {
+        if (activeProjId == null){
+            activeProjId = "default-project";
+        };
+        let projID = getActiveProjId();
+        projectsList = JSON.parse(projects);
+        renderProjectsList(projectsList);
+
+        projectsList.forEach(function(ind) {
+            if (ind.projectid == projID) {
+                tasksList = ind.tasks;
+                renderTasksList(tasksList);
+            };
+        });
     };
+    highlightActiveProj(activeProjId);
 };
 
 function getActiveProjId() {

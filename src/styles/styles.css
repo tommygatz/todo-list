@@ -128,7 +128,11 @@ body {
     background-color: #FFFFFF;
 }
 
-.project:hover {
+.project:hover:not(.selected-project) {
+    background: #e7edf3;
+}
+
+.selected-project {
     background: #DAE9F5;
 }
 

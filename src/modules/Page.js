@@ -95,7 +95,6 @@ function renderTasksList(tasks) {
         });
 
         new_task.append(checkbox);
-        // new_task.append(customCheckbox);
         new_task.append(task_text);
         if (!item.completed) {
             new_task.append(task_edit);
@@ -121,29 +120,26 @@ function renderProjectsList(projects) {
             new_project.addEventListener("click", (e) => {
                 setActiveProject(projId);
                 loadFromLocalStorage();
+                e.target.classList.add("selected-project");
             });
-            if (projId == activeProjId) {
-                new_project.classList.add("selected-project");
-            };
             deleteBtn.classList.add("material-symbols-outlined");
             deleteBtn.innerText = "delete";
             deleteBtn.addEventListener("click", () => {
-                deleteProject(new_project.getAttribute('data-key'));
+                deleteProject(projId);
                 renderProjectsList(projectsList);
-                updateLocalStorage()
                 loadFromLocalStorage();
             });
             new_project.append(deleteBtn);
             projects_el.append(new_project);
         });
     };
+    // highlightActiveProj(activeProjId);
 };
 
-// function highlightActiveProj(){
-//     let activeProjElement = document.getElementById(activeProjId);
-//     console.log(activeProjElement)
-//     activeProjElement.classList.add("selected-project");
-// }
+function highlightActiveProj(id){
+    console.log(id.toString());
+    document.getElementById(id.toString()).classList.add("selected-project");
+};
 
 
-export { renderTasksList, renderProjectsList };
+export { renderTasksList, renderProjectsList, highlightActiveProj };
