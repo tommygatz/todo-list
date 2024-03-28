@@ -4,21 +4,29 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <title>Todo List</title>
     </head>
     <body>
-        <div id="task-list">
-            <div id="header">
-                <h1>To-do List</h1>
-                <form id="new-task-form">
-                    <input type="text" id="new-task" placeholder="Enter New Task">
-                    <input type="submit" id="new-task-submit" value="Add Task" >
-                </form>
-            </div>
-            <ul id="tasks">
-
-            </ul>
+        <div id="header">
+            <h1>To-do List</h1>
+            <form id="new-task-form">
+                <input type="text" id="new-task" placeholder="Enter New Task">
+                <input type="submit" id="new-task-submit" value="Add Task" >
+            </form>
         </div>
-        <script src="main.js"></script>
+        <div id="content">
+            <div id="project-list">
+                <span id="add-project-btn">&#43;</span>
+                <h2 id="projects-header">Projects</h2>
+                <ul id="projects"></ul>
+            </div>
+
+            <div id="task-list">
+                <ul id="tasks"></ul>
+            </div>
+        </div>
+
+        <script defer src="main.js"></script>
     </body>
 </html>
